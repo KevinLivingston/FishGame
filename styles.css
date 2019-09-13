@@ -1,3 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    font-size: 16px;
+}
+
 body {
-    background:blue;
+    position: relative;
+    min-height: 100%;
+    background:#71d7ff;
+}
+
+.player-object {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height: 48px;
+    width: 48px;
+    background: red;
 }
