@@ -11,14 +11,12 @@ html {
 body {
     position: relative;
     min-height: 100%;
-    background:#71d7ff;
+    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/e3eefc7d-f73f-49bd-90be-8ad4f7bc5a33/d6htj7x-5801865e-cd1d-46d4-b7d0-924cb74bbb2f.jpg");
+    background-repeat: repeat;
 }
 
 .player-object {
     position: fixed;
     top: 50px;
     left: 50px;
-    height: 48px;
-    width: 48px;
-    background: red;
 }
