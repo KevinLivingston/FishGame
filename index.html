@@ -11,4 +11,100 @@
     <div id="player" class="player-object"></div>
   </div>
 </body>
+<script>
+
+
+const player = document.getElementById("player");
+const container = document.getElementById("container");
+var frameRate=5;
+var accel=0.5;
+var decel=0.95;
+var xspeed=0.00;
+var yspeed=0.00;
+var startX=25;
+var startY=25;
+var xloc=startX;
+var yloc=startY;
+
+var upLeft=false;
+var upRight=false;
+var downLeft=false;
+var downRight=false;
+var right=false
+var down=false;
+var up=false;
+var left=false;
+
+player.style.left=startX;
+player.style.top=startY;
+document.onkeydown = function(event) {
+  switch (event.keyCode) {
+    case 37:
+        left=true;
+      break;
+    case 38:
+        up=true;
+      break;
+    case 39:
+        right=true;
+      break;
+    case 40:
+        down=true;
+      break;
+        }
+    };
+document.onkeyup = function(event) {
+  switch (event.keyCode) {
+    case 37:
+        left=false;
+      break;
+    case 38:
+        up=false;
+      break;
+    case 39:
+        right=false;
+      break;
+    case 40:
+        down=false;
+      break;
+        }
+    };
+
+move=function(){
+    if(up){
+      yspeed-=accel;
+    }
+    if(down){
+      yspeed+=accel;
+    }
+    if(left){
+      xspeed-=accel;
+    }
+    if(right){
+      xspeed+=accel;
+    }
+    xspeed*=decel;
+    yspeed*=decel;
+    
+    player.style.left=String(parseInt(player.style.left)+xspeed)+"px";
+    player.style.top=String(parseInt(player.style.top)+yspeed)+"px";
+    if(yloc<0){
+      yspeed=-yspeed/2;
+      yloc=yloc+25;
+    }
+    else if(yloc>window.height){
+      yspeed=-yspeed/2;
+      yloc=yloc-25;
+    }
+    if(xloc<0){
+      xspeed=-xspeed/2;
+      xloc=xloc+25;
+    }
+    else if(xloc>window.width){
+      yspeed=-yspeed/2;
+      xloc=xloc-25;
+    }
+}
+setInterval(move, frameRate);
+</script>
 </html>
