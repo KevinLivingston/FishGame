@@ -2,13 +2,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-eqpuuiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <div id="player" class="player-object"></div>
+    <img src="http://bestanimations.com/Animals/Fish/animated-fish-gif-4.gif" height="96px" width="96px" id="player" class="player-object" />
   </div>
 </body>
 <script>
@@ -17,12 +17,14 @@
 const player = document.getElementById("player");
 const container = document.getElementById("container");
 var frameRate=5;
-var accel=0.5;
+var accel=0.2;
 var decel=0.95;
 var xspeed=0.00;
 var yspeed=0.00;
 var startX=25;
 var startY=25;
+player.style.left=String(startX)+"px";
+player.style.top=String(startY)+"px";;
 var xloc=startX;
 var yloc=startY;
 
@@ -35,8 +37,6 @@ var down=false;
 var up=false;
 var left=false;
 
-player.style.left=startX;
-player.style.top=startY;
 document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 37:
@@ -71,6 +71,7 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
+
     if(up){
       yspeed-=accel;
     }
@@ -85,24 +86,21 @@ move=function(){
     }
     xspeed*=decel;
     yspeed*=decel;
-    
-    player.style.left=String(parseInt(player.style.left)+xspeed)+"px";
-    player.style.top=String(parseInt(player.style.top)+yspeed)+"px";
+    xloc=parseInt(player.style.left)+xspeed;
+    yloc=parseInt(player.style.top)+yspeed;
+    player.style.left=String(Math.round(xloc))+"px";
+    player.style.top=String(Math.round(yloc))+"px";
     if(yloc<0){
-      yspeed=-yspeed/2;
-      yloc=yloc+25;
+      yloc=startY;
     }
     else if(yloc>window.height){
-      yspeed=-yspeed/2;
-      yloc=yloc-25;
+      yloc=startY;
     }
     if(xloc<0){
-      xspeed=-xspeed/2;
-      xloc=xloc+25;
+      xloc=startX;
     }
     else if(xloc>window.width){
-      yspeed=-yspeed/2;
-      xloc=xloc-25;
+      xloc=startX;
     }
 }
 setInterval(move, frameRate);
