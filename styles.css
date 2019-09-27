@@ -20,3 +20,28 @@ body {
     top: 50px;
     left: 50px;
 }
+
+.right-fish{
+    background-size: 96px 96px;
+    background-image: url("fish\ facing\ right.gif");
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:96px;
+    width: 96px;
+    z-index: 100;
+    background-repeat: cover;
+}
+
+.left-fish{
+    background-size: 96px 96px;
+    background-image: url("fish\ facing\ left.gif");
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:96px;
+    width: 96px;
+    z-index: 100;
+    background-repeat: cover;
+}
+

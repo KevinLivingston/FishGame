@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <img src="http://bestanimations.com/Animals/Fish/animated-fish-gif-4.gif" height="96px" width="96px" id="player" class="player-object" />
+  <div class = "right-fish" id="player"/>
+    <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
   </div>
 </body>
 <script>
@@ -41,12 +41,16 @@ document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 37:
         left=true;
+        player.classList.remove("right-fish");
+        player.classList.add("left-fish");
       break;
     case 38:
         up=true;
       break;
     case 39:
         right=true;
+        player.classList.remove("left-fish");
+        player.classList.add("right-fish");
       break;
     case 40:
         down=true;
@@ -80,6 +84,7 @@ move=function(){
     }
     if(left){
       xspeed-=accel;
+      
     }
     if(right){
       xspeed+=accel;
@@ -103,6 +108,12 @@ move=function(){
       xloc=startX;
     }
 }
+
+
 setInterval(move, frameRate);
 </script>
 </html>
+
+
+
+
