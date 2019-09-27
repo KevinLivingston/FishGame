@@ -75,6 +75,8 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
+    yloc = Math.abs(yloc) % window.innerHeight;
+    xloc = Math.abs(xloc) % window.innerWidth;
 
     if(up){
       yspeed-=accel;
@@ -91,22 +93,11 @@ move=function(){
     }
     xspeed*=decel;
     yspeed*=decel;
-    xloc=parseInt(player.style.left)+xspeed;
-    yloc=parseInt(player.style.top)+yspeed;
+    xloc=xloc+xspeed;
+    yloc=yloc+yspeed;
     player.style.left=String(Math.round(xloc))+"px";
     player.style.top=String(Math.round(yloc))+"px";
-    if(yloc<0){
-      yloc=startY;
-    }
-    else if(yloc>window.height){
-      yloc=startY;
-    }
-    if(xloc<0){
-      xloc=startX;
-    }
-    else if(xloc>window.width){
-      xloc=startX;
-    }
+    
 }
 
 
