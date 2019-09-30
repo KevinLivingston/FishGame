@@ -9,10 +9,12 @@ html {
 }
 
 body {
-    position: relative;
+    position: fixed;
     min-height: 100%;
     background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/e3eefc7d-f73f-49bd-90be-8ad4f7bc5a33/d6htj7x-5801865e-cd1d-46d4-b7d0-924cb74bbb2f.jpg");
     background-repeat: repeat;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .player-object {
@@ -20,3 +22,28 @@ body {
     top: 50px;
     left: 50px;
 }
+
+.right-fish{
+    background-size: 96px 96px;
+    background-image: url("fish\ facing\ right.gif");
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:96px;
+    width: 96px;
+    z-index: 100;
+    background-repeat: cover;
+}
+
+.left-fish{
+    background-size: 96px 96px;
+    background-image: url("fish\ facing\ left.gif");
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:96px;
+    width: 96px;
+    z-index: 100;
+    background-repeat: cover;
+}
+

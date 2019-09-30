@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <img src="http://bestanimations.com/Animals/Fish/animated-fish-gif-4.gif" height="96px" width="96px" id="player" class="player-object" />
+  <div class = "right-fish" id="player"/>
+    <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
   </div>
 </body>
 <script>
@@ -41,12 +41,16 @@ document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 37:
         left=true;
+        player.classList.remove("right-fish");
+        player.classList.add("left-fish");
       break;
     case 38:
         up=true;
       break;
     case 39:
         right=true;
+        player.classList.remove("left-fish");
+        player.classList.add("right-fish");
       break;
     case 40:
         down=true;
@@ -71,6 +75,8 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
+    yloc = Math.abs(yloc) % window.innerHeight;
+    xloc = Math.abs(xloc) % window.innerWidth;
 
     if(up){
       yspeed-=accel;
@@ -80,29 +86,25 @@ move=function(){
     }
     if(left){
       xspeed-=accel;
+      
     }
     if(right){
       xspeed+=accel;
     }
     xspeed*=decel;
     yspeed*=decel;
-    xloc=parseInt(player.style.left)+xspeed;
-    yloc=parseInt(player.style.top)+yspeed;
+    xloc=xloc+xspeed;
+    yloc=yloc+yspeed;
     player.style.left=String(Math.round(xloc))+"px";
     player.style.top=String(Math.round(yloc))+"px";
-    if(yloc<0){
-      yloc=startY;
-    }
-    else if(yloc>window.height){
-      yloc=startY;
-    }
-    if(xloc<0){
-      xloc=startX;
-    }
-    else if(xloc>window.width){
-      xloc=startX;
-    }
+    
 }
+
+
 setInterval(move, frameRate);
 </script>
 </html>
+
+
+
+
