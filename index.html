@@ -7,8 +7,10 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class = "right-fish" id="player"/>
+  <div class = "right-fish" id="player">
     <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
+  </div>
+  <div class = "cpu" id="cpu">
   </div>
 </body>
 <script>
@@ -16,28 +18,38 @@
 
 const player = document.getElementById("player");
 const container = document.getElementById("container");
-var frameRate=5;
+var frameRate=1;
 var accel=0.2;
 var decel=0.95;
 var xspeed=0.00;
 var yspeed=0.00;
+var startSize=100;
+var size=startSize;
 var startX=25;
 var startY=25;
+
+var playerCenterX=-1000;
+var playerCenterY=-1000;
+var cpu1CenterX=-1000;
+var cpu1CenterY=-1000;
+
 player.style.left=String(startX)+"px";
 player.style.top=String(startY)+"px";;
 var xloc=startX;
 var yloc=startY;
-
+var cpuMaxSize=100;
+var cpu1xloc=0;
+var cpu1yloc=25;
+var cpu1size=10;
+var cpu1left=false;
 var upLeft=false;
 var upRight=false;
 var downLeft=false;
 var downRight=false;
-var right=false
+var right=false;
 var down=false;
 var up=false;
 var left=false;
-
-console.log(-101 % 100);
 
 document.onkeydown = function(event) {
   switch (event.keyCode) {
@@ -77,14 +89,51 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
-    yloc = yloc % window.innerHeight;
-    xloc = xloc % window.innerWidth;
-    if (xloc < 0){
-      xloc = window.innerWidth + xloc;
-    }
-    if (yloc < 0){
-      yloc = window.innerHeight + yloc;
-    }
+  updatePlayerObject();
+  updateCPU1();  
+  checkForCollisions();
+}
+checkForCollisions=function(){
+  playerCenterX=xloc+size/2;
+  playerCenterY=yloc+size/2;
+  cpu1CenterX=cpu1xloc+cpu1size/2;
+  cpu1CenterY=cpu1yloc+cpu1size/2;
+  if(Math.sqrt(Math.pow(playerCenterX-cpu1CenterX,2)+Math.pow(playerCenterY-cpu1CenterY,2))<Math.abs((size+cpu1size)/2)){
+    hasCollided();
+  }
+}
+hasCollided=function(){
+  console.log(5);
+}
+var magic=40;
+var base=1;
+updateCPU1=function(){
+  if(cpu1left){
+    cpu1xloc=cpu1xloc-((cpuMaxSize/magic-cpu1size/(2*magic))+base);
+  }
+  else{
+    cpu1xloc=cpu1xloc+((cpuMaxSize/magic-cpu1size/(2*magic))+base);
+  }
+  
+  if(cpu1xloc>window.innerWidth){
+    cpu1size = Math.random()*cpuMaxSize;
+    cpu1yloc=Math.random()*window.innerHeight;
+    cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth;
+  }
+  cpu.style.left=String(Math.round(cpu1xloc))+"px";
+  cpu.style.top=String(Math.round(cpu1yloc))+"px";
+  cpu.style.width=cpu1size;
+  cpu.style.height=cpu1size;
+  cpu.style.backgroundSize=String(Math.round(cpu1size))+"px "+String(Math.round(cpu1size))+"px";
+}
+updatePlayerObject=function(){
+  player.style.width=size;
+  player.style.height=size;
+  player.style.backgroundSize=String(Math.round(size))+"px "+String(Math.round(size))+"px";
+
+  player.style.height=size;
+  yloc = (yloc+window.innerHeight) % window.innerHeight;
+    xloc = (xloc+window.innerWidth) % window.innerWidth;
     if(up){
       yspeed-=accel;
     }
@@ -104,7 +153,6 @@ move=function(){
     yloc=yloc+yspeed;
     player.style.left=String(Math.round(xloc))+"px";
     player.style.top=String(Math.round(yloc))+"px";
-    
 }
 
 
