@@ -37,6 +37,8 @@ var down=false;
 var up=false;
 var left=false;
 
+console.log(-101 % 100);
+
 document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 37:
@@ -75,9 +77,14 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
-    yloc = Math.abs(yloc) % window.innerHeight;
-    xloc = Math.abs(xloc) % window.innerWidth;
-
+    yloc = yloc % window.innerHeight;
+    xloc = xloc % window.innerWidth;
+    if (xloc < 0){
+      xloc = window.innerWidth + xloc;
+    }
+    if (yloc < 0){
+      yloc = window.innerHeight + yloc;
+    }
     if(up){
       yspeed-=accel;
     }
