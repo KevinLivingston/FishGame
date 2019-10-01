@@ -10,38 +10,73 @@
   <div class = "right-fish" id="player">
     <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
   </div>
-  <div class = "cpu" id="cpu">
+  <div class = "cpu1" id="cpu1">
   </div>
+</div>
+<div class = "cpu2" id="cpu2">
+</div>
+</div>
+<div class = "cpu3" id="cpu3">
+</div>
+</div>
+<div class = "cpu4" id="cpu4">
+</div>
 </body>
 <script>
 
 
 const player = document.getElementById("player");
 const container = document.getElementById("container");
+var score=0;
 var frameRate=1;
 var accel=0.2;
 var decel=0.95;
-var xspeed=0.00;
-var yspeed=0.00;
-var startSize=100;
+var xspeed=0;
+var yspeed=0;
+var startSize=70;
 var size=startSize;
-var startX=25;
-var startY=25;
-
+var startX=(window.innerWidth-startSize)/2;
+var startY=(window.innerHeight-startSize)/2;
+var bigFishBoost=1.5;
+var bigFishChance=0.005;
+var sizeIncrease=10;
+var winScore=75;
 var playerCenterX=-1000;
 var playerCenterY=-1000;
 var cpu1CenterX=-1000;
 var cpu1CenterY=-1000;
+var cpu2CenterX=-1000;
+var cpu2CenterY=-1000;
+var cpu3CenterX=-1000;
+var cpu3CenterY=-1000;
+var cpu4CenterX=-1000;
+var cpu4CenterY=-1000;
 
 player.style.left=String(startX)+"px";
 player.style.top=String(startY)+"px";;
 var xloc=startX;
 var yloc=startY;
-var cpuMaxSize=100;
-var cpu1xloc=0;
+var cpuMaxSize=200;
+var cpu1xloc=window.innerWidth*2;
 var cpu1yloc=25;
 var cpu1size=10;
+var cpu2xloc=window.innerWidth*2;
+var cpu2yloc=25;
+var cpu2size=10;
+var cpu3xloc=0;
+var cpu3yloc=25;
+var cpu3size=10;
+var cpu4xloc=0;
+var cpu4yloc=25;
+var cpu4size=10;
+var cpu1ded=false;
 var cpu1left=false;
+var cpu2ded=false;
+var cpu2left=false;
+var cpu3ded=false;
+var cpu3left=false;
+var cpu4ded=false;
+var cpu4left=false;
 var upLeft=false;
 var upRight=false;
 var downLeft=false;
@@ -90,51 +125,268 @@ document.onkeyup = function(event) {
 
 move=function(){
   updatePlayerObject();
-  updateCPU1();  
+  updateCPU()
   checkForCollisions();
+  updateCSS();
+  if(score>winScore){
+    youWin();
+  }
 }
+
+youWin=function(){
+  resetGame();
+
+
+
+
+
+
+
+
+}
+
+
+updateCPU=function(){
+  updateCPU1();
+  updateCPU2();  
+  updateCPU3();  
+  updateCPU4();  
+}
+
 checkForCollisions=function(){
   playerCenterX=xloc+size/2;
   playerCenterY=yloc+size/2;
   cpu1CenterX=cpu1xloc+cpu1size/2;
   cpu1CenterY=cpu1yloc+cpu1size/2;
+  cpu2CenterX=cpu2xloc+cpu2size/2;
+  cpu2CenterY=cpu2yloc+cpu2size/2;
+  cpu3CenterX=cpu3xloc+cpu3size/2;
+  cpu3CenterY=cpu3yloc+cpu3size/2;
+  cpu4CenterX=cpu4xloc+cpu4size/2;
+  cpu4CenterY=cpu4yloc+cpu4size/2;
   if(Math.sqrt(Math.pow(playerCenterX-cpu1CenterX,2)+Math.pow(playerCenterY-cpu1CenterY,2))<Math.abs((size+cpu1size)/2)){
-    hasCollided();
+    hasCollidedCpu1();
+  }
+  if(Math.sqrt(Math.pow(playerCenterX-cpu2CenterX,2)+Math.pow(playerCenterY-cpu2CenterY,2))<Math.abs((size+cpu2size)/2)){
+    hasCollidedCpu2();
+  }
+  if(Math.sqrt(Math.pow(playerCenterX-cpu3CenterX,2)+Math.pow(playerCenterY-cpu3CenterY,2))<Math.abs((size+cpu3size)/2)){
+    hasCollidedCpu3();
+  }
+  if(Math.sqrt(Math.pow(playerCenterX-cpu4CenterX,2)+Math.pow(playerCenterY-cpu4CenterY,2))<Math.abs((size+cpu4size)/2)){
+    hasCollidedCpu4();
   }
 }
-hasCollided=function(){
-  console.log(5);
+getBigger=function(){
+  size=size+sizeIncrease;
+  xloc=xloc-sizeIncrease/2;
+  yloc=yloc-sizeIncrease/2;
+  score=score+1;
 }
-var magic=40;
-var base=1;
+hasCollidedCpu1=function(){
+  if(!cpu1ded&&cpu1size<size){
+    getBigger();
+    cpu1ded=true;
+  }
+  else if(!cpu1ded){
+    youLose();
+  }
+}
+hasCollidedCpu2=function(){
+  if(!cpu2ded&&cpu2size<size){
+    getBigger();
+    cpu2ded=true;
+  }
+  else if(!cpu2ded){
+    youLose();
+  }
+}
+hasCollidedCpu3=function(){
+  if(!cpu3ded&&cpu3size<size){
+    getBigger();
+    cpu3ded=true;
+  }
+  else if(!cpu3ded){
+    youLose();
+  }
+}
+hasCollidedCpu4=function(){
+  if(!cpu4ded&&cpu4size<size){
+    getBigger();
+    cpu4ded=true;
+  }
+  else if(!cpu4ded){
+    youLose();
+  }
+}
+youLose=function(){
+  resetGame();
+}
+resetGame=function(){
+  xloc=startX;
+  yloc=startY;
+  size=startSize;
+  score=0;
+  killAllCpu();
+}
+killAllCpu=function(){
+  cpu1ded=true;
+  cpu2ded=true;
+  cpu3ded=true;
+  cpu4ded=true;
+}
 updateCPU1=function(){
-  if(cpu1left){
-    cpu1xloc=cpu1xloc-((cpuMaxSize/magic-cpu1size/(2*magic))+base);
-  }
-  else{
-    cpu1xloc=cpu1xloc+((cpuMaxSize/magic-cpu1size/(2*magic))+base);
-  }
-  
+  updateCpu1Location();
   if(cpu1xloc>window.innerWidth){
-    cpu1size = Math.random()*cpuMaxSize;
-    cpu1yloc=Math.random()*window.innerHeight;
-    cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth;
+    cpu1Offscreen();
   }
-  cpu.style.left=String(Math.round(cpu1xloc))+"px";
-  cpu.style.top=String(Math.round(cpu1yloc))+"px";
-  cpu.style.width=cpu1size;
-  cpu.style.height=cpu1size;
-  cpu.style.backgroundSize=String(Math.round(cpu1size))+"px "+String(Math.round(cpu1size))+"px";
+}
+updateCPU2=function(){
+  updateCpu2Location();
+  if(cpu2xloc>window.innerWidth){
+    cpu2Offscreen();
+  }
+}
+updateCPU3=function(){
+  updateCpu3Location();
+  if(cpu3xloc<-cpu3size){
+    cpu3Offscreen();
+  }
+}
+updateCPU4=function(){
+  updateCpu4Location();
+  if(cpu4xloc<-cpu3size){
+    cpu4Offscreen();
+  }
+}
+var temp;
+cpu1Offscreen=function(){
+  cpu1ded=false;
+  temp=Math.random();
+  if(temp<.9){
+    cpu1size = temp*cpuMaxSize;
+  }else{
+    cpu1size=temp*1.7*cpuMaxSize;
+  }
+  cpu1yloc=Math.random()*window.innerHeight;
+  cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu1size;
+}
+cpu2Offscreen=function(){
+  cpu2ded=false;
+  temp=Math.random();
+  if(temp<.9){
+    cpu2size = temp*cpuMaxSize;
+  }else{
+    cpu2size=temp*1.7*cpuMaxSize;
+  }
+  cpu2yloc=Math.random()*window.innerHeight;
+  cpu2xloc = (cpu2xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu2size;
+}
+cpu3Offscreen=function(){
+  cpu3ded=false;
+  temp=Math.random();
+  if(temp<.9){
+    cpu3size = temp*cpuMaxSize;
+  }else{
+    cpu3size=temp*1.7*cpuMaxSize;
+  }
+  cpu3yloc=Math.random()*window.innerHeight;
+  cpu3xloc = (cpu3xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
+}
+cpu4Offscreen=function(){
+  cpu4ded=false;
+  temp=Math.random();
+  if(temp<(1-bigFishChance)){
+    cpu4size = temp*cpuMaxSize;
+  }else{
+    cpu4size=temp*bigFishBoost*cpuMaxSize;
+  }
+  cpu4yloc=Math.random()*window.innerHeight;
+  cpu4xloc = (cpu4xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
+}
+updateCpu1Location=function(){
+    cpu1xloc=cpu1xloc+((cpuMaxSize-cpu1size/2)/40);
+}
+updateCpu2Location=function(){
+    cpu2xloc=cpu2xloc+((cpuMaxSize-cpu2size/2)/40);
+}
+updateCpu3Location=function(){
+    cpu3xloc=cpu3xloc-((cpuMaxSize-cpu3size/2)/40);
+}
+updateCpu4Location=function(){
+    cpu4xloc=cpu4xloc-((cpuMaxSize-cpu4size/2)/40);
 }
 updatePlayerObject=function(){
+  stayOnScreen();
+  updateSpeed();
+  updateLocation();
+}
+stayOnScreen=function(){
+  yloc = (yloc+size/2+window.innerHeight) % window.innerHeight-size/2;
+  xloc = (xloc+size/2+window.innerWidth) % window.innerWidth-size/2;
+}
+updateCSS=function(){
+  player.style.left=String(Math.round(xloc))+"px";
+  player.style.top=String(Math.round(yloc))+"px";
   player.style.width=size;
   player.style.height=size;
   player.style.backgroundSize=String(Math.round(size))+"px "+String(Math.round(size))+"px";
+  updateCpuCSS();
+}
+updateCpuCSS=function(){
+  if(cpu1ded){
+    cpu1.style.visibility="hidden";
+  }
+  else{
+    cpu1.style.visibility="visible";
+  }
+  cpu1.style.left=String(Math.round(cpu1xloc))+"px";
+  cpu1.style.top=String(Math.round(cpu1yloc))+"px";
+  cpu1.style.width=cpu1size;
+  cpu1.style.height=cpu1size;
+  cpu1.style.backgroundSize=String(Math.round(cpu1size))+"px "+String(Math.round(cpu1size))+"px";
 
-  player.style.height=size;
-  yloc = (yloc+window.innerHeight) % window.innerHeight;
-    xloc = (xloc+window.innerWidth) % window.innerWidth;
-    if(up){
+  if(cpu2ded){
+    cpu2.style.visibility="hidden";
+  }
+  else{
+    cpu2.style.visibility="visible";
+  }
+  cpu2.style.left=String(Math.round(cpu2xloc))+"px";
+  cpu2.style.top=String(Math.round(cpu2yloc))+"px";
+  cpu2.style.width=cpu2size;
+  cpu2.style.height=cpu2size;
+  cpu2.style.backgroundSize=String(Math.round(cpu2size))+"px "+String(Math.round(cpu2size))+"px";
+
+  if(cpu3ded){
+    cpu3.style.visibility="hidden";
+  }
+  else{
+    cpu3.style.visibility="visible";
+  }
+  cpu3.style.left=String(Math.round(cpu3xloc))+"px";
+  cpu3.style.top=String(Math.round(cpu3yloc))+"px";
+  cpu3.style.width=cpu3size;
+  cpu3.style.height=cpu3size;
+  cpu3.style.backgroundSize=String(Math.round(cpu3size))+"px "+String(Math.round(cpu3size))+"px";
+  if(cpu4ded){
+    cpu4.style.visibility="hidden";
+  }
+  else{
+    cpu4.style.visibility="visible";
+  }
+  cpu4.style.left=String(Math.round(cpu4xloc))+"px";
+  cpu4.style.top=String(Math.round(cpu4yloc))+"px";
+  cpu4.style.width=cpu4size;
+  cpu4.style.height=cpu4size;
+  cpu4.style.backgroundSize=String(Math.round(cpu4size))+"px "+String(Math.round(cpu4size))+"px";
+}
+updateLocation=function(){
+  xloc=xloc+xspeed;
+  yloc=yloc+yspeed;
+}
+updateSpeed=function(){
+  if(up){
       yspeed-=accel;
     }
     if(down){
@@ -142,20 +394,13 @@ updatePlayerObject=function(){
     }
     if(left){
       xspeed-=accel;
-      
     }
     if(right){
       xspeed+=accel;
     }
     xspeed*=decel;
     yspeed*=decel;
-    xloc=xloc+xspeed;
-    yloc=yloc+yspeed;
-    player.style.left=String(Math.round(xloc))+"px";
-    player.style.top=String(Math.round(yloc))+"px";
 }
-
-
 setInterval(move, frameRate);
 </script>
 </html>

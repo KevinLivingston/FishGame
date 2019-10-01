@@ -47,7 +47,7 @@ body {
     background-repeat: cover;
 }
 
-.cpu{
+.cpu1{
     background-size: 50px 50px;
     background-color: red;
     position: absolute;
@@ -57,5 +57,42 @@ body {
     width: 50px;
     z-index: 100;
     background-repeat: cover;
+    visibility: visible;
+}
+.cpu2{
+    background-size: 50px 50px;
+    background-color: lightblue;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:50px;
+    width: 50px;
+    z-index: 100;
+    background-repeat: cover;
+    visibility: visible;
+}
+.cpu3{
+    background-size: 50px 50px;
+    background-color: yellow;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:50px;
+    width: 50px;
+    z-index: 100;
+    background-repeat: cover;
+    visibility: visible;
+}
+.cpu4{
+    background-size: 50px 50px;
+    background-color: green;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    height:50px;
+    width: 50px;
+    z-index: 100;
+    background-repeat: cover;
+    visibility: visible;
 }
 
