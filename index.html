@@ -41,16 +41,16 @@ var bigFishBoost=1.5;
 var bigFishChance=0.005;
 var sizeIncrease=10;
 var winScore=75;
-var playerCenterX=-1000;
-var playerCenterY=-1000;
-var cpu1CenterX=-1000;
-var cpu1CenterY=-1000;
-var cpu2CenterX=-1000;
-var cpu2CenterY=-1000;
-var cpu3CenterX=-1000;
-var cpu3CenterY=-1000;
-var cpu4CenterX=-1000;
-var cpu4CenterY=-1000;
+var playerCenterX;
+var playerCenterY;
+var cpu1CenterX;
+var cpu1CenterY;
+var cpu2CenterX;
+var cpu2CenterY;
+var cpu3CenterX;
+var cpu3CenterY;
+var cpu4CenterX;
+var cpu4CenterY;
 
 player.style.left=String(startX)+"px";
 player.style.top=String(startY)+"px";;
@@ -128,7 +128,7 @@ move=function(){
   updateCPU()
   checkForCollisions();
   updateCSS();
-  if(score>winScore){
+  if(score*sizeIncrease>bigFishBoost*cpuMaxSize*1.3){
     youWin();
   }
 }
@@ -223,6 +223,8 @@ youLose=function(){
   resetGame();
 }
 resetGame=function(){
+  startX=(window.innerWidth-startSize)/2;
+  startY=(window.innerHeight-startSize)/2;
   xloc=startX;
   yloc=startY;
   size=startSize;
@@ -264,11 +266,11 @@ cpu1Offscreen=function(){
   cpu1ded=false;
   temp=Math.random();
   if(temp<.9){
-    cpu1size = temp*cpuMaxSize;
+    cpu1size = temp*cpuMaxSize+1;
   }else{
-    cpu1size=temp*1.7*cpuMaxSize;
+    cpu1size=temp*bigFishBoost*cpuMaxSize;
   }
-  cpu1yloc=Math.random()*window.innerHeight;
+  cpu1yloc=Math.random()*(window.innerHeight-cpu1size);
   cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu1size;
 }
 cpu2Offscreen=function(){
@@ -277,9 +279,9 @@ cpu2Offscreen=function(){
   if(temp<.9){
     cpu2size = temp*cpuMaxSize;
   }else{
-    cpu2size=temp*1.7*cpuMaxSize;
+    cpu2size=temp*bigFishBoost*cpuMaxSize;
   }
-  cpu2yloc=Math.random()*window.innerHeight;
+  cpu2yloc=Math.random()*(window.innerHeight-cpu2size);
   cpu2xloc = (cpu2xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu2size;
 }
 cpu3Offscreen=function(){
@@ -288,9 +290,9 @@ cpu3Offscreen=function(){
   if(temp<.9){
     cpu3size = temp*cpuMaxSize;
   }else{
-    cpu3size=temp*1.7*cpuMaxSize;
+    cpu3size=temp*bigFishBoost*cpuMaxSize;
   }
-  cpu3yloc=Math.random()*window.innerHeight;
+  cpu3yloc=Math.random()*(window.innerHeight-cpu3size);
   cpu3xloc = (cpu3xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
 }
 cpu4Offscreen=function(){
@@ -301,7 +303,7 @@ cpu4Offscreen=function(){
   }else{
     cpu4size=temp*bigFishBoost*cpuMaxSize;
   }
-  cpu4yloc=Math.random()*window.innerHeight;
+  cpu4yloc=Math.random()*(window.innerHeight-cpu4size);
   cpu4xloc = (cpu4xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
 }
 updateCpu1Location=function(){
