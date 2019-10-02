@@ -38,7 +38,7 @@ var size=startSize;
 var startX=(window.innerWidth-startSize)/2;
 var startY=(window.innerHeight-startSize)/2;
 var bigFishBoost=1.5;
-var bigFishChance=0.005;
+var bigFishChance=0.07;
 var sizeIncrease=10;
 var winScore=75;
 var playerCenterX;
@@ -265,46 +265,74 @@ var temp;
 cpu1Offscreen=function(){
   cpu1ded=false;
   temp=Math.random();
-  if(temp<.9){
+  if(temp<1-bigFishChance){
     cpu1size = temp*cpuMaxSize+1;
   }else{
     cpu1size=temp*bigFishBoost*cpuMaxSize;
   }
   cpu1yloc=Math.random()*(window.innerHeight-cpu1size);
   cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu1size;
+  var rand=Math.random()>=0.5;
+  if(rand){
+    cpu1.style.backgroundImage='url("cpu1.gif")';
+  }
+  else{
+    cpu1.style.backgroundImage='url("cpu2.gif")';
+  }
 }
 cpu2Offscreen=function(){
   cpu2ded=false;
   temp=Math.random();
-  if(temp<.9){
+  if(temp<1-bigFishChance){
     cpu2size = temp*cpuMaxSize;
   }else{
     cpu2size=temp*bigFishBoost*cpuMaxSize;
   }
   cpu2yloc=Math.random()*(window.innerHeight-cpu2size);
   cpu2xloc = (cpu2xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu2size;
+  var rand=Math.random()>=0.5;
+  if(rand){
+    cpu2.style.backgroundImage='url("cpu2.gif")';
+  }
+  else{
+    cpu2.style.backgroundImage='url("cpu1.gif")';
+  }
 }
 cpu3Offscreen=function(){
   cpu3ded=false;
   temp=Math.random();
-  if(temp<.9){
+  if(temp<1-bigFishChance){
     cpu3size = temp*cpuMaxSize;
   }else{
     cpu3size=temp*bigFishBoost*cpuMaxSize;
   }
   cpu3yloc=Math.random()*(window.innerHeight-cpu3size);
   cpu3xloc = (cpu3xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
+  var rand=Math.random()>=0.5;
+  if(rand){
+    cpu3.style.backgroundImage='url("cpu3.gif")';
+  }
+  else{
+    cpu3.style.backgroundImage='url("cpu4.gif")';
+  }
 }
 cpu4Offscreen=function(){
   cpu4ded=false;
   temp=Math.random();
-  if(temp<(1-bigFishChance)){
+  if(temp<(1-bigFishChance/4)){
     cpu4size = temp*cpuMaxSize;
   }else{
     cpu4size=temp*bigFishBoost*cpuMaxSize;
   }
   cpu4yloc=Math.random()*(window.innerHeight-cpu4size);
   cpu4xloc = (cpu4xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
+  var rand=Math.random()>=0.5;
+  if(rand){
+    cpu4.style.backgroundImage='url("cpu4.gif")';
+  }
+  else{
+    cpu4.style.backgroundImage='url("cpu3.gif")';
+  }
 }
 updateCpu1Location=function(){
     cpu1xloc=cpu1xloc+((cpuMaxSize-cpu1size/2)/40);
