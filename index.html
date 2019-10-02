@@ -318,7 +318,7 @@ cpu3Offscreen=function(){
 cpu4Offscreen=function(){
   cpu4ded=false;
   temp=Math.random();
-  if(temp<(1-bigFishChance/50)){
+  if(temp<(1-bigFishChance)){
     cpu4size = temp*cpuMaxSize;
   }else{
     cpu4size=temp*bigFishBoost*cpuMaxSize;
