@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="score-display">
+    Score: <span id="#score">0</span>
+  </div>
   <div class = "right-fish" id="player">
     <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
   </div>
@@ -152,6 +155,10 @@ updateCPU=function(){
   updateCPU4();  
 }
 
+function updateScore() {
+  document.getElementsByTagName('span')[0].innerHTML = score * 100;
+}
+
 checkForCollisions=function(){
   playerCenterX=xloc+size/2;
   playerCenterY=yloc+size/2;
@@ -181,6 +188,7 @@ getBigger=function(){
   xloc=xloc-sizeIncrease/2;
   yloc=yloc-sizeIncrease/2;
   score=score+1;
+  updateScore();
 }
 hasCollidedCpu1=function(){
   if(!cpu1ded&&cpu1size<size){
@@ -229,6 +237,7 @@ resetGame=function(){
   size=startSize;
   score=0;
   killAllCpu();
+  updateScore();
 }
 killAllCpu=function(){
   cpu1ded=true;
@@ -256,7 +265,7 @@ updateCPU3=function(){
 }
 updateCPU4=function(){
   updateCpu4Location();
-  if(cpu4xloc<-cpu3size){
+  if(cpu4xloc<-cpu4size){
     cpu4Offscreen();
   }
 }
