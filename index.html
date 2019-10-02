@@ -38,9 +38,8 @@ var size=startSize;
 var startX=(window.innerWidth-startSize)/2;
 var startY=(window.innerHeight-startSize)/2;
 var bigFishBoost=1.5;
-var bigFishChance=0.07;
-var sizeIncrease=10;
-var winScore=75;
+var bigFishChance=0.1;
+var sizeIncrease=6;
 var playerCenterX;
 var playerCenterY;
 var cpu1CenterX;
@@ -128,7 +127,7 @@ move=function(){
   updateCPU()
   checkForCollisions();
   updateCSS();
-  if(score*sizeIncrease>bigFishBoost*cpuMaxSize*1.3){
+  if(score*sizeIncrease>bigFishBoost*cpuMaxSize*1.6){
     youWin();
   }
 }
@@ -274,10 +273,10 @@ cpu1Offscreen=function(){
   cpu1xloc = (cpu1xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu1size;
   var rand=Math.random()>=0.5;
   if(rand){
-    cpu1.style.backgroundImage='url("cpu1.gif")';
+    cpu1.style.backgroundImage='url("img/cpu1.gif")';
   }
   else{
-    cpu1.style.backgroundImage='url("cpu2.gif")';
+    cpu1.style.backgroundImage='url("img/cpu2.gif")';
   }
 }
 cpu2Offscreen=function(){
@@ -292,10 +291,10 @@ cpu2Offscreen=function(){
   cpu2xloc = (cpu2xloc+window.innerWidth) % window.innerWidth-window.innerWidth/4-cpu2size;
   var rand=Math.random()>=0.5;
   if(rand){
-    cpu2.style.backgroundImage='url("cpu2.gif")';
+    cpu2.style.backgroundImage='url("img/cpu2.gif")';
   }
   else{
-    cpu2.style.backgroundImage='url("cpu1.gif")';
+    cpu2.style.backgroundImage='url("img/cpu1.gif")';
   }
 }
 cpu3Offscreen=function(){
@@ -310,16 +309,16 @@ cpu3Offscreen=function(){
   cpu3xloc = (cpu3xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
   var rand=Math.random()>=0.5;
   if(rand){
-    cpu3.style.backgroundImage='url("cpu3.gif")';
+    cpu3.style.backgroundImage='url("img/cpu3.gif")';
   }
   else{
-    cpu3.style.backgroundImage='url("cpu4.gif")';
+    cpu3.style.backgroundImage='url("img/cpu4.gif")';
   }
 }
 cpu4Offscreen=function(){
   cpu4ded=false;
   temp=Math.random();
-  if(temp<(1-bigFishChance/4)){
+  if(temp<(1-bigFishChance/50)){
     cpu4size = temp*cpuMaxSize;
   }else{
     cpu4size=temp*bigFishBoost*cpuMaxSize;
@@ -328,10 +327,10 @@ cpu4Offscreen=function(){
   cpu4xloc = (cpu4xloc+window.innerWidth) % window.innerWidth+window.innerWidth/4;
   var rand=Math.random()>=0.5;
   if(rand){
-    cpu4.style.backgroundImage='url("cpu4.gif")';
+    cpu4.style.backgroundImage='url("img/cpu4.gif")';
   }
   else{
-    cpu4.style.backgroundImage='url("cpu3.gif")';
+    cpu4.style.backgroundImage='url("img/cpu3.gif")';
   }
 }
 updateCpu1Location=function(){
