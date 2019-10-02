@@ -10,6 +10,14 @@
   <div class="score-display">
     Score: <span id="#score">0</span>
   </div>
+  <div class="end-screen">
+    <div class="end-screen-text">
+      Score: <span id="#final-score">0</span>
+    </div>
+    <center>
+      <button class="btn" style="margin-top:1rem;">Play again</button>
+    </center>
+  </div>
   <div class = "right-fish" id="player">
     <!--<img src="C:\Users\James\Pictures\Saved Pictures\fish facing left.gif" height="96px" width="96px" id="player" class="right-fish" />-->
   </div>
@@ -27,9 +35,17 @@
 </body>
 <script>
 
-
 const player = document.getElementById("player");
 const container = document.getElementById("container");
+let button;
+let endscreen;
+
+window.onload = function() {
+  endscreen = document.getElementsByTagName('div')[1];
+  button = document.getElementsByTagName('button')[0];
+  endscreen.classList.add('hidden');
+}
+var paused=false;
 var score=0;
 var frameRate=1;
 var accel=0.2;
@@ -126,7 +142,9 @@ document.onkeyup = function(event) {
     };
 
 move=function(){
-  updatePlayerObject();
+  if(!paused){
+    updatePlayerObject();
+  }
   updateCPU()
   checkForCollisions();
   updateCSS();
@@ -196,6 +214,7 @@ hasCollidedCpu1=function(){
     cpu1ded=true;
   }
   else if(!cpu1ded){
+    cpu1ded=true;
     youLose();
   }
 }
@@ -205,6 +224,7 @@ hasCollidedCpu2=function(){
     cpu2ded=true;
   }
   else if(!cpu2ded){
+    cpu2ded=true;
     youLose();
   }
 }
@@ -214,6 +234,7 @@ hasCollidedCpu3=function(){
     cpu3ded=true;
   }
   else if(!cpu3ded){
+    cpu3ded=true;
     youLose();
   }
 }
@@ -223,13 +244,32 @@ hasCollidedCpu4=function(){
     cpu4ded=true;
   }
   else if(!cpu4ded){
+    cpu4ded=true;
     youLose();
   }
 }
 youLose=function(){
-  resetGame();
+  console.log('testeroni');
+  paused=true;
+  xloc=-2000;
+  yloc=-2000;
+  endgame();
+}
+function endgame() {
+  let promise = new Promise(function(resolve, reject) {
+    endscreen.classList.remove('hidden');
+    document.getElementsByTagName('span')[1].innerText = score * 100;
+    resolve("done");
+  });
+  promise.then(function() {
+    document.getElementsByTagName('button')[0].addEventListener('click', function() {
+      resetGame();
+    });
+  });
 }
 resetGame=function(){
+  document.getElementsByTagName('div')[1].classList.add('hidden');
+  paused=false;
   startX=(window.innerWidth-startSize)/2;
   startY=(window.innerHeight-startSize)/2;
   xloc=startX;
