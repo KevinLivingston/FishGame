@@ -1,1 +1,1 @@
-# fishy
+This is a continuation of a project from my final semester, objective was to build a game just on a single web page. My team and I decided to try to recreate another game where the user controls a fish in which can only eat fish smaller than it. If a bigger fish touches the users fish then the fish is "Eaten" and the round is over. User receives 100 points per fish eaten
